@@ -53,6 +53,14 @@ You can also force someone to a specific alternative of your page by using the q
     http://draftin.com/buy_things?test_value=long
 
 
+When you get some data you can go to this page: 
+
+    http://www.usereffect.com/split-test-calculator
+
+To check the winner. 
+
+    Visitors  = simple_abs' participants
+    Goals     = simple_abs' conversions    
 
 ## Contributing
 

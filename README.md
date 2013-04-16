@@ -1,3 +1,5 @@
+# Rails AB Testing - Simple Abs
+
 I recently turned on paid subscriptions to [Draft, the writing software](https://draftin.com) I've created. And I wanted a really simple way to test a few alternatives of the payment page in Rails without needing to use a separate service.
  
 But the solutions out there get too complicated. Even the "simplest" ones require things like Redis. They do that because somewhere the AB testing library needs to remember what variation of a test a user has already seen, so it knows what to show them on subsequent visits. 

@@ -48,6 +48,9 @@ Once your user converts you can call:
 
     converted!("buy_page")
 
+You can also force someone to a specific alternative of your page by using the query paramater "test_value" in your url: 
+
+    http://draftin.com/buy_things?test_value=long
 
 
 

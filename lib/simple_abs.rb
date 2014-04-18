@@ -30,7 +30,7 @@ module SimpleAbs
       test_value = tests[rand(tests.size)]
       cookies.permanent[name] = test_value
       
-      Alternative.find_or_create_by_experiment_and_which(name, test_value).increment!(:participants)
+      find_or_create_by_experiment_and_which_method(name, test_value).increment!(:participants)
     end
     
     return test_value
@@ -41,10 +41,24 @@ module SimpleAbs
     if !is_bot?
       test_value = cookies[name]
       if test_value && cookies[name.to_s + "_converted"].blank?
-        Alternative.find_or_create_by_experiment_and_which(name, test_value).increment!(:conversions)
+        find_or_create_by_experiment_and_which_method(name, test_value).increment!(:conversions)
         cookies.permanent[name.to_s + "_converted"] = true
       end
     end
+  end
+
+  def find_or_create_by_experiment_and_which_method(experiment, which)
+    alternative = Alternative.where(experiment: experiment, which: which).first
+
+    if alternative.nil?
+      alternative = Alternative.new
+      alternative.experiment = experiment
+      alternative.which = which
+      alternative.save
+    end
+
+    return alternative
+
   end
 
 
@@ -57,6 +71,16 @@ module SimpleAbs
 
   class Alternative < ActiveRecord::Base
 
+    def conversion
+      if participants.present? && conversions.present?
+        (participants.to_f/conversions.to_f).round(2)
+      end
+    end
+
+    # 90 percent error
+    def error
+
+    end
   end
 
 
